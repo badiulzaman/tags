@@ -7,21 +7,15 @@
       yum:
         name: httpd
         state: present
-      tags: ['never', alpha]
     - name: start httpd
       service:
         name: httpd
         state: started
-      tags: ['never', alpha]
     - name: first tag task
       copy:
         content: "Hello"
         dest: /var/www/html/index.html
-      tags: ['never', alpha]
-
-
     - name: second tag task
       copy:
         content: "Bye Bye"
         dest: /var/www/html/index.html
-      tags: ['never', beta]
