@@ -1,0 +1,5 @@
+---
+- name: Create CGroup
+  hosts: localhost
+  tasks:
+    - raw: cgcreate -a sysadmin:sysadmin -t sysadmin:sysadmin -g cpuacct,memory,pids:ex447_stats
