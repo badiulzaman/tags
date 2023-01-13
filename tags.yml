@@ -3,19 +3,13 @@
   hosts: all
   gather_facts: false
   tasks:
-    - name: install httpd
-      yum:
-        name: httpd
-        state: present
-    - name: start httpd
-      service:
-        name: httpd
-        state: started
     - name: first tag task
       copy:
         content: "Hello"
         dest: /var/www/html/index.html
+      tags: ['never', alpha]
     - name: second tag task
       copy:
-        content: "Bye Bye"
+        content: "Bye"
         dest: /var/www/html/index.html
+      tags: ['never', beta]
