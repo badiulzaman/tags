@@ -1,19 +1,22 @@
 ---
 - name: Ensure Apache is deployed using tags
-  hosts: production
+  hosts: dev
   gather_facts: false
+  become: true
+  become_user: root
   tasks:
-    - name:  deploy webserver
+    - name:  Deploy webserver
       yum:
         name: httpd
         state: installed
+      tags: ['never', deploy]
     - name:  webserver task
       copy:
-        content: "webserver"
+        content: "Hello"
         dest: /var/www/html/index.html
       tags: ['never', alpha]
     - name: dataserver task
       copy:
-        content: "database"
+        content: "Bye"
         dest: /var/www/html/index.html
       tags: ['never', beta]
