@@ -1,4 +1,4 @@
 [dev]
 node3
-[production]
+[prod]
 node1

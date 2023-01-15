@@ -1,0 +1,40 @@
+---
+- name: setting up tags on prod
+  hosts: prod
+  become: true
+  tasks:
+  - name: deploy httpd and firewalld
+    yum:
+      name:
+        - httpd
+        - firewalld
+  - name: start httpd
+    service:
+      name: httpd
+      state: started
+  - name: start firewalld
+    service:
+      name: firewalld
+      state: started
+  - name: enable http port in firewalld
+    firewalld:
+      service: http
+      state: enabled
+      immediate: true
+      permanent: true
+  - name: enable https port in firewalld
+    firewalld:
+      service: https
+      state: enabled
+      immediate: true
+  - name: setup content
+    copy:
+      content: "Hello World! \n"
+      dest: /var/www/html/index.html
+    tags: ['never', alpha]
+  - name: setup content
+    copy:
+      content: "site is down for unknown reason \n"
+      dest: /var/www/html/index.html
+    tags: ['never', beta]
+...
