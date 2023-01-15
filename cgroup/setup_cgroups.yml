@@ -1,0 +1,14 @@
+---
+- name: seting up cgroups and profile
+  hosts: localhost
+  become: true
+  tasks:
+  - name: installing cgroup related packages
+    yum:
+     name:
+      - libcgroup
+      - libcgroup-tools
+     state: installed
+  - name: setup profile for cgroup
+    raw: cgcreate -a sysadmin:sysadmin -t sysadmin:sysadmin -g cpuacct,memory,pids:ex447
+...
